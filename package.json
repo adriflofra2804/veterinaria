@@ -2,12 +2,14 @@
   "name": "veterinaria",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
+  "ng": "ng",
+  "start": "ng serve --proxy-config src/proxy.conf.json",
+  "build": "ng build",
+  "watch": "ng build --watch --configuration development",
+  "test": "ng test",
+  "api": "node backend/servidor_mock.js backend/db.json 3000",
+  "api:reset": "node backend/reset_db.js"
+},
   "private": true,
   "packageManager": "npm@11.19.0",
   "dependencies": {
@@ -17,6 +19,7 @@
     "@angular/forms": "^22.2.0",
     "@angular/platform-browser": "^22.2.0",
     "@angular/router": "^22.2.0",
+    "bootstrap": "^5.3.8",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

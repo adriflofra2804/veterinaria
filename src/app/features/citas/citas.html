@@ -1,0 +1,63 @@
+<h2 class="mb-3">Lista de citas</h2>
+
+@if (error()) {
+<div class="alert alert-danger">{{ error() }}</div>
+}
+
+@if (cargando()) {
+<div class="text-center py-5">
+    <div class="spinner-border text-success" role="status"></div>
+    <p class="mt-2 text-muted">Cargando citas...</p>
+</div>
+} @else if (citas().length === 0) {
+<div class="alert alert-info">No hay citas registradas todavía.</div>
+} @else {
+<div class="table-responsive bg-white rounded shadow-sm">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-success">
+            <tr>
+                <th>Mascota</th>
+                <th>Propietario</th>
+                <th>Especie</th>
+                <th>Fecha</th>
+                <th>Costo</th>
+                <th>Estado</th>
+                <th>Motivo</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (cita of citas(); track cita.id) {
+            <tr>
+                <td class="fw-bold">{{ cita.mascota | uppercase }}</td>
+                <td>{{ cita.propietario }}</td>
+                <td>{{ cita.especie }}</td>
+                <td>{{ cita.fecha | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ cita.costo | currency: 'PEN' : 'symbol-narrow' }}</td>
+                <td>
+                    @if (cita.estado === 'Pendiente') {
+                    <span class="badge text-bg-warning">{{ cita.estado }}</span>
+                    } @else if (cita.estado === 'Atendido') {
+                    <span class="badge text-bg-success">{{ cita.estado }}</span>
+                    } @else {
+                    <span class="badge text-bg-danger">{{ cita.estado }}</span>
+                    }
+                </td>
+                <td>{{ cita.motivo }}</td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-sm">
+                        @if (cita.estado === 'Pendiente') {
+                        <button class="btn btn-success" (click)="cambiarEstado(cita, 'Atendido')">Atender</button>
+                        <button class="btn btn-warning" (click)="cambiarEstado(cita, 'Cancelado')">Cancelar</button>
+                        } @else {
+                        <button class="btn btn-secondary" (click)="cambiarEstado(cita, 'Pendiente')">Reabrir</button>
+                        }
+                        <button class="btn btn-danger" (click)="eliminar(cita)">Eliminar</button>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}

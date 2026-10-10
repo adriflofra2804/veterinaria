@@ -1,0 +1,106 @@
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Registrar nueva cita</h4>
+            </div>
+            <div class="card-body">
+                @if (error()) {
+                <div class="alert alert-danger">{{ error() }}</div>
+                }
+
+                <form #form="ngForm" (ngSubmit)="guardar(form)" novalidate>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="mascota">Nombre de la mascota</label>
+                            <input id="mascota" name="mascota" class="form-control" [(ngModel)]="cita.mascota"
+                                #mascota="ngModel" required
+                                [class.is-invalid]="mascota.invalid && (mascota.touched || form.submitted)" />
+                            @if (mascota.invalid && (mascota.touched || form.submitted)) {
+                            <div class="invalid-feedback">El nombre de la mascota es obligatorio.</div>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="propietario">Propietario</label>
+                            <input id="propietario" name="propietario" class="form-control"
+                                [(ngModel)]="cita.propietario" #propietario="ngModel" required
+                                [class.is-invalid]="propietario.invalid && (propietario.touched || form.submitted)" />
+                            @if (propietario.invalid && (propietario.touched || form.submitted)) {
+                            <div class="invalid-feedback">El nombre del propietario es obligatorio.</div>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="especie">Especie</label>
+                            <select id="especie" name="especie" class="form-select" [(ngModel)]="cita.especie"
+                                #especie="ngModel" required
+                                [class.is-invalid]="especie.invalid && (especie.touched || form.submitted)">
+                                <option value="" disabled>Selecciona una especie</option>
+                                @for (item of especies; track item) {
+                                <option [value]="item">{{ item }}</option>
+                                }
+                            </select>
+                            @if (especie.invalid && (especie.touched || form.submitted)) {
+                            <div class="invalid-feedback">Selecciona la especie.</div>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="fecha">Fecha de la cita</label>
+                            <input id="fecha" name="fecha" type="date" class="form-control" [(ngModel)]="cita.fecha"
+                                #fecha="ngModel" required
+                                [class.is-invalid]="fecha.invalid && (fecha.touched || form.submitted)" />
+                            @if (fecha.invalid && (fecha.touched || form.submitted)) {
+                            <div class="invalid-feedback">La fecha es obligatoria.</div>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="costo">Costo (S/)</label>
+                            <input id="costo" name="costo" type="number" min="0" class="form-control"
+                                [(ngModel)]="cita.costo" #costo="ngModel" required
+                                [class.is-invalid]="costo.invalid && (costo.touched || form.submitted)" />
+                            @if (costo.invalid && (costo.touched || form.submitted)) {
+                            <div class="invalid-feedback">Ingresa un costo válido (0 o mayor).</div>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="estado">Estado</label>
+                            <select id="estado" name="estado" class="form-select" [(ngModel)]="cita.estado" required>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Atendido">Atendido</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label" for="motivo">Motivo de la consulta</label>
+                            <textarea id="motivo" name="motivo" rows="3" class="form-control" [(ngModel)]="cita.motivo"
+                                #motivo="ngModel" required
+                                [class.is-invalid]="motivo.invalid && (motivo.touched || form.submitted)"></textarea>
+                            @if (motivo.invalid && (motivo.touched || form.submitted)) {
+                            <div class="invalid-feedback">Describe el motivo de la consulta.</div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-success" [disabled]="form.invalid || guardando()">
+                            @if (guardando()) {
+                            Guardando...
+                            } @else {
+                            Guardar cita
+                            }
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary"
+                            (click)="form.resetForm({ estado: 'Pendiente', costo: 0, especie: '' })">
+                            Limpiar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

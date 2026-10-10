@@ -1,0 +1,58 @@
+<div class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
+    <h1 class="display-5 fw-bold">🐾 Bienvenido a Veterinaria Patitas</h1>
+    <p class="lead text-muted">
+        Gestiona las citas y las mascotas de tu clínica de forma rápida y ordenada.
+    </p>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+        <a class="btn btn-success btn-lg" routerLink="/nueva-cita">Registrar nueva cita</a>
+        <a class="btn btn-outline-success btn-lg" routerLink="/citas">Ver citas</a>
+    </div>
+</div>
+
+@if (error()) {
+<div class="alert alert-danger">
+    No se pudo conectar con la API. Verifica que json-server esté corriendo (<code>npm run api</code>).
+</div>
+} @else {
+<div class="row g-3">
+    <div class="col-6 col-lg-3">
+        <div class="card text-bg-primary h-100">
+            <div class="card-body text-center">
+                <h2 class="display-6">{{ total() }}</h2>
+                <p class="mb-0">Citas totales</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card text-bg-warning h-100">
+            <div class="card-body text-center">
+                <h2 class="display-6">{{ pendientes() }}</h2>
+                <p class="mb-0">Pendientes</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card text-bg-success h-100">
+            <div class="card-body text-center">
+                <h2 class="display-6">{{ atendidas() }}</h2>
+                <p class="mb-0">Atendidas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card text-bg-danger h-100">
+            <div class="card-body text-center">
+                <h2 class="display-6">{{ canceladas() }}</h2>
+                <p class="mb-0">Canceladas</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4 shadow-sm">
+    <div class="card-body text-center">
+        <p class="text-muted mb-1">Ingresos por citas atendidas</p>
+        <h2 class="text-success">{{ ingresos() | currency: 'PEN' : 'symbol-narrow' }}</h2>
+    </div>
+</div>
+}

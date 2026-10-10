@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>API Tester · Veterinaria Patitas</title>
+    <style>
+        :root {
+            --verde: #198754;
+            --verde-osc: #146c43;
+            --fondo: #f5f7fa;
+            --texto: #1f2937;
+            --gris: #6b7280;
+            --borde: #e5e7eb
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--fondo);
+            color: var(--texto)
+        }
+
+        header {
+            background: var(--verde);
+            color: #fff;
+            padding: 18px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.3rem
+        }
+
+        header small {
+            opacity: .85
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .18);
+            font-weight: 600;
+            font-size: .9rem
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #facc15
+        }
+
+        .dot.ok {
+            background: #4ade80
+        }
+
+        .dot.fail {
+            background: #f87171
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 24px auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        @media(max-width:850px) {
+            .wrap {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--borde);
+            border-radius: 14px;
+            padding: 18px;
+            min-width: 0
+        }
+
+        .card.full {
+            grid-column: 1/-1
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: 1.05rem
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px
+        }
+
+        .chip {
+            border: 1px solid var(--verde);
+            background: #fff;
+            color: var(--verde);
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: .85rem
+        }
+
+        .chip:hover {
+            background: var(--verde);
+            color: #fff
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 8px
+        }
+
+        select,
+        input,
+        textarea {
+            font: inherit;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            width: 100%
+        }
+
+        textarea {
+            min-height: 170px;
+            font-family: Consolas, monospace;
+            font-size: .85rem;
+            margin-top: 8px
+        }
+
+        button.enviar {
+            margin-top: 10px;
+            background: var(--verde);
+            color: #fff;
+            border: 0;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        button.enviar:hover {
+            background: var(--verde-osc)
+        }
+
+        button.sec {
+            background: #fff;
+            color: var(--verde);
+            border: 1px solid var(--verde);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-weight: 600;
+            cursor: pointer
+        }
+
+        .estado {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: .85rem;
+            color: #fff;
+            background: #6b7280
+        }
+
+        .estado.s2 {
+            background: #198754
+        }
+
+        .estado.s4 {
+            background: #d97706
+        }
+
+        .estado.s5 {
+            background: #dc3545
+        }
+
+        pre {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 14px;
+            border-radius: 10px;
+            min-height: 170px;
+            max-height: 380px;
+            overflow: auto;
+            white-space: pre-wrap;
+            margin: 10px 0 0;
+            font-size: .85rem
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px
+        }
+
+        .tabla {
+            overflow-x: auto
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .88rem
+        }
+
+        th,
+        td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--borde);
+            text-align: left;
+            white-space: nowrap
+        }
+
+        th {
+            background: #e8f5ee
+        }
+
+        .badge {
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: .78rem;
+            font-weight: 700
+        }
+
+        .Pendiente {
+            background: #fff3cd;
+            color: #8a6d00
+        }
+
+        .Atendido {
+            background: #d1e7dd;
+            color: #0f5132
+        }
+
+        .Cancelado {
+            background: #f8d7da;
+            color: #842029
+        }
+
+        .nota {
+            color: var(--gris);
+            font-size: .85rem;
+            margin: 0 0 12px
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>🐾 API Tester · Veterinaria Patitas</h1>
+            <small>Prueba el back-end REST antes de conectarlo con Angular</small>
+        </div>
+        <span class="pill"><span id="dot" class="dot"></span><span id="estadoApi">Comprobando API...</span></span>
+    </header>
+
+    <div class="wrap">
+        <section class="card">
+            <h2>1. Petición</h2>
+            <p class="nota">Elige una plantilla o escribe tu propia petición.</p>
+            <div class="chips">
+                <button class="chip" onclick="usar('listar')">GET todas</button>
+                <button class="chip" onclick="usar('uno')">GET una</button>
+                <button class="chip" onclick="usar('crear')">POST nueva</button>
+                <button class="chip" onclick="usar('atender')">PATCH atender</button>
+                <button class="chip" onclick="usar('eliminar')">DELETE</button>
+            </div>
+            <div class="row">
+                <select id="method">
+                    <option>GET</option>
+                    <option>POST</option>
+                    <option>PATCH</option>
+                    <option>PUT</option>
+                    <option>DELETE</option>
+                </select>
+                <input id="url" value="/citas">
+            </div>
+            <textarea id="body" placeholder="Body JSON (solo POST, PATCH o PUT)"></textarea>
+            <button class="enviar" onclick="enviar()">Enviar petición</button>
+        </section>
+
+        <section class="card">
+            <h2>2. Respuesta</h2>
+            <div><span id="codigo" class="estado">---</span> <span id="tiempo" class="nota"></span></div>
+            <pre id="out">Esperando petición...</pre>
+        </section>
+
+        <section class="card full">
+            <div class="top">
+                <h2 style="margin:0">3. Citas guardadas en db.json</h2>
+                <button class="sec" onclick="actualizar()">Actualizar</button>
+            </div>
+            <div class="tabla">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Mascota</th>
+                            <th>Propietario</th>
+                            <th>Especie</th>
+                            <th>Fecha</th>
+                            <th>Costo</th>
+                            <th>Estado</th>
+                            <th>Motivo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filas"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const $ = id => document.getElementById(id);
+
+        const plantillas = {
+            listar: { m: 'GET', u: '/citas', b: null },
+            uno: { m: 'GET', u: '/citas/1', b: null },
+            crear: {
+                m: 'POST',
+                u: '/citas',
+                b: {
+                    mascota: 'Toby',
+                    propietario: 'Pedro Gómez',
+                    especie: 'Perro',
+                    fecha: '2026-10-25',
+                    costo: 75,
+                    estado: 'Pendiente',
+                    motivo: 'Control de rutina'
+                }
+            },
+            atender: { m: 'PATCH', u: '/citas/1', b: { estado: 'Atendido' } },
+            eliminar: { m: 'DELETE', u: '/citas/5', b: null }
+        };
+
+        function usar(nombre) {
+            const p = plantillas[nombre];
+            $('method').value = p.m;
+            $('url').value = p.u;
+            $('body').value = p.b ? JSON.stringify(p.b, null, 2) : '';
+        }
+
+        async function enviar() {
+            const method = $('method').value;
+            const url = $('url').value.trim();
+            const opciones = { method, headers: { 'Content-Type': 'application/json' } };
+
+            if (['POST', 'PATCH', 'PUT'].includes(method)) {
+                try {
+                    opciones.body = JSON.stringify(JSON.parse($('body').value));
+                } catch {
+                    $('codigo').textContent = 'JSON inválido';
+                    $('codigo').className = 'estado s4';
+                    $('out').textContent = 'Revisa el body: no es un JSON válido.';
+                    return;
+                }
+            }
+
+            const inicio = performance.now();
+            try {
+                const respuesta = await fetch(url, opciones);
+                const texto = await respuesta.text();
+                let formateado = texto;
+                try { formateado = JSON.stringify(JSON.parse(texto), null, 2); } catch { }
+
+                $('codigo').textContent = `HTTP ${respuesta.status} ${respuesta.statusText}`;
+                $('codigo').className = 'estado s' + Math.floor(respuesta.status / 100);
+                $('tiempo').textContent = Math.round(performance.now() - inicio) + ' ms';
+                $('out').textContent = formateado || '(sin cuerpo)';
+                actualizar();
+            } catch (error) {
+                $('codigo').textContent = 'ERROR DE CONEXIÓN';
+                $('codigo').className = 'estado s5';
+                $('tiempo').textContent = '';
+                $('out').textContent = error.message;
+                marcarApi(false);
+            }
+        }
+
+        function marcarApi(ok, total) {
+            $('dot').className = 'dot ' + (ok ? 'ok' : 'fail');
+            $('estadoApi').textContent = ok ? `API en línea · ${total} citas` : 'API sin conexión';
+        }
+
+        function celda(fila, texto, clase) {
+            const td = document.createElement('td');
+            if (clase) {
+                const span = document.createElement('span');
+                span.className = 'badge ' + clase;
+                span.textContent = texto;
+                td.appendChild(span);
+            } else {
+                td.textContent = texto;
+            }
+            fila.appendChild(td);
+        }
+
+        async function actualizar() {
+            try {
+                const respuesta = await fetch('/citas');
+                const citas = await respuesta.json();
+                const cuerpo = $('filas');
+                cuerpo.replaceChildren();
+
+                citas.forEach(c => {
+                    const fila = document.createElement('tr');
+                    celda(fila, c.id);
+                    celda(fila, c.mascota);
+                    celda(fila, c.propietario);
+                    celda(fila, c.especie);
+                    celda(fila, c.fecha);
+                    celda(fila, 'S/ ' + c.costo);
+                    celda(fila, c.estado, c.estado);
+                    celda(fila, c.motivo);
+                    cuerpo.appendChild(fila);
+                });
+                marcarApi(true, citas.length);
+            } catch {
+                marcarApi(false);
+            }
+        }
+
+        usar('listar');
+        actualizar();
+        setInterval(actualizar, 5000);
+    </script>
+</body>
+
+</html>

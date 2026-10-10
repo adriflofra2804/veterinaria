@@ -1,0 +1,54 @@
+{
+    "citas": [
+        {
+            "id": "1",
+            "mascota": "Max",
+            "propietario": "Carlos Ramírez",
+            "especie": "Perro",
+            "fecha": "2026-10-15",
+            "costo": 80,
+            "estado": "Pendiente",
+            "motivo": "Vacuna antirrábica"
+        },
+        {
+            "id": "2",
+            "mascota": "Luna",
+            "propietario": "María Torres",
+            "especie": "Gato",
+            "fecha": "2026-10-12",
+            "costo": 120,
+            "estado": "Atendido",
+            "motivo": "Control general y desparasitación"
+        },
+        {
+            "id": "3",
+            "mascota": "Rocky",
+            "propietario": "Jorge Salazar",
+            "especie": "Perro",
+            "fecha": "2026-10-18",
+            "costo": 200,
+            "estado": "Pendiente",
+            "motivo": "Revisión de cojera en pata trasera"
+        },
+        {
+            "id": "4",
+            "mascota": "Piolín",
+            "propietario": "Ana Quispe",
+            "especie": "Ave",
+            "fecha": "2026-10-09",
+            "costo": 60,
+            "estado": "Cancelado",
+            "motivo": "Revisión de plumaje"
+        },
+        {
+            "id": "5",
+            "mascota": "Nieve",
+            "propietario": "Lucía Paredes",
+            "especie": "Conejo",
+            "fecha": "2026-10-20",
+            "costo": 90,
+            "estado": "Pendiente",
+            "motivo": "Corte de uñas y chequeo dental"
+        }
+    ]
+}
