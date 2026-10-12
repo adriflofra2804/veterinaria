@@ -51,7 +51,7 @@
       "motivo": "Corte de uñas y chequeo dental"
     },
     {
-      "mascota": "Toby",
+      "mascota": "Toby <3",
       "propietario": "Pedro Gómez",
       "especie": "Perro",
       "fecha": "2026-10-25",
@@ -59,6 +59,26 @@
       "estado": "Pendiente",
       "motivo": "Control de rutina",
       "id": "6"
+    },
+    {
+      "mascota": "Lulu",
+      "propietario": "Alexa",
+      "especie": "Ave",
+      "fecha": "2026-10-12",
+      "costo": 98,
+      "estado": "Cancelado",
+      "motivo": "Ver plumaje",
+      "id": "7"
+    },
+    {
+      "mascota": "Rosa",
+      "propietario": "Noé",
+      "especie": "Perro",
+      "fecha": "2026-10-12",
+      "costo": 15,
+      "estado": "Pendiente",
+      "motivo": "Vacuna",
+      "id": "8"
     }
   ]
 }
