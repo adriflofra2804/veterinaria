@@ -79,6 +79,26 @@
       "estado": "Pendiente",
       "motivo": "Vacuna",
       "id": "8"
+    },
+    {
+      "mascota": "Nose",
+      "propietario": "Menos",
+      "especie": "Otro",
+      "fecha": "2026-10-13",
+      "costo": 13,
+      "estado": "Atendido",
+      "motivo": ":v",
+      "id": "9"
+    },
+    {
+      "mascota": "Pug",
+      "propietario": "Que ti",
+      "especie": "Perro",
+      "fecha": "2026-10-31",
+      "costo": 1.5,
+      "estado": "Pendiente",
+      "motivo": "Solo porque si xd ",
+      "id": "10"
     }
   ]
 }
